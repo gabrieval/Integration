@@ -1,0 +1,106 @@
+@font-face {
+    font-family: 'RickAndMortyFont';
+    src: url('./../../fonts/rick_and_morty.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+ }
+
+.cardContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url("./../../../public/card.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: auto;
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+    position: relative;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cardContainer:hover {
+    transform: scale(1.05) rotate(2deg);
+    z-index: 1;
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.atributes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    font-size: small;
+    font-family: "Cursive", sans-serif;
+    color: #00ff00;
+}
+
+.atributes h2 {
+    font-family: 'RickAndMortyFont', sans-serif;
+    margin-right: 10px;
+ }
+
+.closeButton {
+    opacity: 0.7;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.imageContainer {
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    margin-bottom: 5px;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 150px;
+    height: 150px;
+}
+
+.name {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    -webkit-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    font-family: "Cursive", sans-serif;
+    color: white;
+}
+
+.characterImage {
+    display: block;
+    width: 100%;
+    height: auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.cardContainer:hover .characterImage {
+    animation: moveUpDown 2s infinite alternate;
+}
+
+@keyframes moveUpDown {
+    0% {
+        transform: translateX(-3px) translateY(-3px);
+    }
+    100% {
+        transform: translateX(3px) translateY(3px);
+    }
+}
