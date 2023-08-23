@@ -5,10 +5,10 @@ export default function Card(props) {
    return (
       <div className ={style.cardContainer}>
 
+         <button className= {style.closeButton} onClick={()=>onClose(character.id)}>X</button>
          <div className={style.imageContainer}>
             <img className= {style.characterImage} src={character.image} alt={character.name} />
             <h2 className={style.name}> {character.name}</h2>
-            <button className= {style.closeButton} onClick={onClose}>X</button>
          </div>
 
          <div className= {style.atributes}>

@@ -1,13 +1,23 @@
 import { SearchContainer, SearchInput, SearchIcon, SearchIconContainer } from "./searchBar.styles";
-
+import { useState } from "react";
 
 export default function SearchBar(props) {
   const {onSearch}=props;
+
+const [id,setId] = useState ("")
+
+function changeHandler (e){
+   e.preventDefault ();
+   let input = e.target.value;
+   setId (input);
+}
+
+
    return (
       <SearchContainer>
-         <SearchInput type='search' />
+         <SearchInput type='search' value={id}  onChange={changeHandler}/>
          <SearchIconContainer>
-         <SearchIcon onClick={onSearch}/>
+         <SearchIcon onClick={()=>onSearch(id)}/>
 
          </SearchIconContainer>
          
