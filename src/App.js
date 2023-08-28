@@ -1,17 +1,33 @@
 import './App.css';
 import Cards from './components/cards/Cards';
 import NavBar from './components/navBar/NavBar';
-import characters from './data.js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Detail from './views/detail/detail';
 import About from './views/about/about';
-
-
+import LandingPage from './views/landingPage/landingPage';
 
 function App() {
    const [characters, setCharacters] = useState([]);
+   const [access, setAccess] = useState(false);
+   const location = useLocation();
+   const navigate = useNavigate();
+   const EMAIL = 'ejemplo@gmail.com';
+   const PASSWORD = '1password';
+
+   function login(userData) {
+      if (userData.password === PASSWORD && userData.email === EMAIL) {
+         setAccess(true);
+         navigate('/home');
+      }else{
+         alert('Datos incorrectos')
+      }
+   }
+   useEffect(() => {
+      !access && navigate('/');
+   }, [access]);
+
    function searchHandler(id) {
       axios(`https://rickandmortyapi.com/api/character/${id}`).then(({ data }) => {
          if (data.name) {
@@ -47,9 +63,15 @@ function App() {
    return (
       <div className='App'>
          <img className="title" src="title.png" alt="logo"></img>
-         <NavBar onSearch={searchHandler} random={randomHandler} />
+         {location.pathname !== "/" && <NavBar onSearch={searchHandler} random={randomHandler} />}
+
+
          <Routes>
-            <Route path="/home" element={<Cards characters={characters} onClose={closeHandler} />} />
+            <Route path="/" element={<LandingPage login={login} />} />
+
+            <Route path="/home"
+               element={<Cards characters={characters} onClose={closeHandler} />}
+            />
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/about" element={<About />} />
             <Route path="*" element={<errorPage />} />
