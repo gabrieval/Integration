@@ -7,6 +7,8 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Detail from './views/detail/detail';
 import About from './views/about/about';
 import LandingPage from './views/landingPage/landingPage';
+import Favorites from './views/favorites/favorites';
+import { removeFavorite } from './redux/actions';
 
 function App() {
    const [characters, setCharacters] = useState([]);
@@ -41,7 +43,7 @@ function App() {
 
    function closeHandler(id) {
       let deleted = characters.filter((char) => char.id !== Number(id));
-      setCharacters(deleted);
+      // setCharacters(deleted);//utilizar map dispatch to props-Extra de react-redux, agregar el removeFavorite()
    }
 
    function randomHandler() {
@@ -74,6 +76,9 @@ function App() {
             />
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/about" element={<About />} />
+
+
+            <Route path="/favorites" element={<favorites />} />
             <Route path="*" element={<errorPage />} />
          </Routes>
       </div>
