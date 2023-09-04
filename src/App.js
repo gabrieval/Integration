@@ -1,20 +1,23 @@
-import './App.css';
+
 import Cards from './components/cards/Cards';
 import NavBar from './components/navBar/NavBar';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { removeFavorite } from './redux/actions';
 import Detail from './views/detail/detail';
 import About from './views/about/about';
 import LandingPage from './views/landingPage/landingPage';
 import Favorites from './views/favorites/favorites';
-import { removeFavorite } from './redux/actions';
+import './App.css';
 
 function App() {
    const [characters, setCharacters] = useState([]);
    const [access, setAccess] = useState(false);
    const location = useLocation();
    const navigate = useNavigate();
+   const dispatch = useDispatch();
    const EMAIL = 'ejemplo@gmail.com';
    const PASSWORD = '1password';
 
@@ -42,8 +45,9 @@ function App() {
    }
 
    function closeHandler(id) {
-      let deleted = characters.filter((char) => char.id !== Number(id));
-      // setCharacters(deleted);//utilizar map dispatch to props-Extra de react-redux, agregar el removeFavorite()
+      let deleted = characters.filter((character) => character.id !== Number(id));
+      dispatch(removeFavorite (id));
+      setCharacters(deleted);
    }
 
    function randomHandler() {
